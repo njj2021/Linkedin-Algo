@@ -1,0 +1,40 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+import os
+import time
+
+chrome_driver_path = webdriver.Chrome(executable_path="C:\chromedriver.exe")
+
+chrome_driver_path.get("https://www.linkedin.com/jobs/search/?distance=25&f_AL=true&f_EA=true&f_WT=2%2C3&geoId=102394087&keywords=software%20engineer&sortBy=R")
+
+sign_in_button = chrome_driver_path.find_element_by_link_text("Sign in")
+sign_in_button.click()
+
+email_field = chrome_driver_path.find_element_by_id("username")
+email_field.send_keys("NULL")
+
+password_field = chrome_driver_path.find_element_by_id("password")
+password_field.send_keys("NULL")
+password_field.send_keys(Keys.ENTER)
+
+all_listings = chrome_driver_path.find_elements_by_css_selector(".job-card-container--clickable")
+
+for listing in all_listings:
+    print("called")
+    listing.click()
+    time.sleep(2)
+    apply_button = chrome_driver_path.find_element_by_css_selector(".jobs-apply-button")
+    apply_button.click()
+
+    time.sleep(2)
+    next_button = chrome_driver_path.find_element_by_xpath("//button[@aria-label = 'Continue to next step']")
+    next_button.click()
+
+    time.sleep(2)
+    review_button = chrome_driver_path.find_element_by_xpath("//button[@aria-label= 'Review your application']")
+    review_button.click()
+
+    time.sleep(2)
+    sumbit_button = chrome_driver_path.find_element_by_xpath("//button[@aria-label='Submit application']")
+    sumbit_button.click()
